@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class MainViewController: UIViewController {
 
@@ -24,5 +25,11 @@ class MainViewController: UIViewController {
         let leftBarButtonItem = UIBarButtonItem(title: "2022년 08월", style: .plain, target: .none, action: .none)
         leftBarButtonItem.tintColor = .white
         navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+}
+
+struct MainViewControllerPreView:PreviewProvider {
+    static var previews: some View {
+        MainViewController().toPreview()
     }
 }
