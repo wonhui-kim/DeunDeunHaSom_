@@ -29,7 +29,7 @@ class DateUIView: UIView {
     
     private lazy var leftButton: UIButton = {
         let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
         let image = UIImage(systemName: "chevron.left", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = .white
@@ -39,7 +39,7 @@ class DateUIView: UIView {
     
     private lazy var rightButton: UIButton = {
         let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
         let image = UIImage(systemName: "chevron.right", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = .white
@@ -64,29 +64,28 @@ extension DateUIView {
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        let dateLabelConstriants = [
-            dateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 180),
-            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100)
+        let dateLabelConstraints = [
+            dateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 150),
+            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 90)
         ]
         
         let dayLabelConstraints = [
-            dayLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 167),
-            dayLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 140)
+            dayLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 165),
+            dayLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 130)
         ]
         
         let leftButtonConstraints = [
-            leftButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 110),
-            leftButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120)
+            leftButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 80),
+            leftButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 110)
         ]
         
         let rightButtonConstraints = [
-            rightButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 270),
-            rightButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120)
+            rightButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 290),
+            rightButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 110)
         ]
         
-        [dateLabelConstriants, dayLabelConstraints, leftButtonConstraints, rightButtonConstraints].forEach { constraint in
+        [dateLabelConstraints, dayLabelConstraints, leftButtonConstraints, rightButtonConstraints].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
-        
     }
 }
