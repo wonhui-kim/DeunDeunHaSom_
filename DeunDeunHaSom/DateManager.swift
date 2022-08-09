@@ -4,19 +4,18 @@
 //
 //  Created by 김원희 on 2022/08/08.
 //
-
 import Foundation
 
 let dateFormatter = DateFormatter()
 
-func fetchYearAndMonth() -> String {
-    dateFormatter.dateFormat = "yyyy년 MM월"
+func fetchYear() -> String {
+    dateFormatter.dateFormat = "yyyy"
     
     return dateFormatter.string(from: Date())
 }
 
 func fetchDate() -> String {
-    dateFormatter.dateFormat = "dd"
+    dateFormatter.dateFormat = "MM. dd"
     
     return dateFormatter.string(from: Date())
 }
