@@ -8,9 +8,11 @@ import UIKit
 
 class DateUIView: UIView {
     
+    var dateManager = DateManager()
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = fetchDate()
+        label.text = dateManager.fetchDate()
         label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textColor = .white
         
@@ -19,7 +21,7 @@ class DateUIView: UIView {
     
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = fetchDay()
+        label.text = dateManager.fetchDay()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         
@@ -33,6 +35,9 @@ class DateUIView: UIView {
         button.setImage(image, for: .normal)
         button.tintColor = .white
         
+        button.addTarget(self, action: #selector(subtractDateAndDay), for: .touchUpInside)
+        
+        
         return button
     }()
     
@@ -43,8 +48,24 @@ class DateUIView: UIView {
         button.setImage(image, for: .normal)
         button.tintColor = .white
         
+        button.addTarget(self, action: #selector(addDateAndDay), for: .touchUpInside)
+        
         return button
     }()
+    
+    @objc
+    func addDateAndDay() {
+        dateManager.addDate()
+        dateLabel.text = dateManager.fetchDate()
+        dayLabel.text = dateManager.fetchDay()
+    }
+    
+    @objc
+    func subtractDateAndDay() {
+        dateManager.subtractDate()
+        dateLabel.text = dateManager.fetchDate()
+        dayLabel.text = dateManager.fetchDay()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +78,7 @@ class DateUIView: UIView {
 }
 
 extension DateUIView {
+    
     private func configureSubviews() {
         [dateLabel, dayLabel, leftButton, rightButton].forEach { component in
             addSubview(component)
@@ -64,23 +86,23 @@ extension DateUIView {
         }
         
         let dateLabelConstraints = [
-            dateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 155),
-            dateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50)
+            dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0)
         ]
         
         let dayLabelConstraints = [
-            dayLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 167),
-            dayLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 90)
+            dayLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            dayLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 40)
         ]
         
         let leftButtonConstraints = [
-            leftButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 90),
-            leftButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 70)
+            leftButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 80),
+            leftButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
         let rightButtonConstraints = [
-            rightButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 290),
-            rightButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 70)
+            rightButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -80),
+            rightButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
         [dateLabelConstraints, dayLabelConstraints, leftButtonConstraints, rightButtonConstraints].forEach { constraint in

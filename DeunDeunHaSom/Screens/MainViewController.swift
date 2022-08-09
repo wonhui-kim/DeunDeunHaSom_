@@ -16,6 +16,8 @@ class MainViewController: UIViewController {
         return table
     }()
     
+    private let dateView = DateUIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mealTable.dataSource = self
@@ -31,18 +33,20 @@ class MainViewController: UIViewController {
         
         mealTable.layer.cornerRadius = 22
         mealTable.separatorStyle = .none
-        mealTable.rowHeight = 40
+        mealTable.rowHeight = 30
         mealTable.isScrollEnabled = false
         mealTable.allowsSelection = false
     }
     
     private func configureDateView() {
-        let dateView = DateUIView()
         view.addSubview(dateView)
+        dateView.translatesAutoresizingMaskIntoConstraints = false
         
         let dateViewConstraints = [
-            dateView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 70),
-            dateView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60)
+            dateView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            dateView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            dateView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            dateView.heightAnchor.constraint(equalToConstant: 70)
         ]
         
         NSLayoutConstraint.activate(dateViewConstraints)
@@ -53,8 +57,8 @@ class MainViewController: UIViewController {
         mealTable.translatesAutoresizingMaskIntoConstraints = false
         
         let mealTableConstraints = [
-            mealTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 180),
-            mealTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -180),
+            mealTable.topAnchor.constraint(equalTo: dateView.bottomAnchor, constant: 30),
+            mealTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -340),
             mealTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 26),
             mealTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26)
         ]
@@ -67,7 +71,7 @@ class MainViewController: UIViewController {
         
         let titleLabel: UILabel = {
             let label = UILabel()
-            label.text = "교직원 중식"
+            label.text = "교직원 식당"
             label.font = .systemFont(ofSize: 25, weight: .bold)
             label.textAlignment = .left
             return label
