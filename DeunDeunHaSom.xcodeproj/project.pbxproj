@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A75A8F1E28A29E80004E7858 /* CrawlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75A8F1D28A29E80004E7858 /* CrawlManager.swift */; };
+		A75A8F2128A29E97004E7858 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2028A29E97004E7858 /* SwiftSoup */; };
+		A75A8F2428A2A1C6004E7858 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2328A2A1C6004E7858 /* Alamofire */; };
 		A79EF89D28A0F94F00AED6D1 /* DateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79EF89C28A0F94F00AED6D1 /* DateUIView.swift */; };
 		A79EF89F28A0FA7400AED6D1 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79EF89E28A0FA7400AED6D1 /* DateManager.swift */; };
 		A7D3262828A0ED3A001D721F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3262728A0ED3A001D721F /* AppDelegate.swift */; };
@@ -17,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A75A8F1D28A29E80004E7858 /* CrawlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlManager.swift; sourceTree = "<group>"; };
 		A79EF89C28A0F94F00AED6D1 /* DateUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUIView.swift; sourceTree = "<group>"; };
 		A79EF89E28A0FA7400AED6D1 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		A7D3262428A0ED3A001D721F /* DeunDeunHaSom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeunDeunHaSom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A75A8F2128A29E97004E7858 /* SwiftSoup in Frameworks */,
+				A75A8F2428A2A1C6004E7858 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +68,7 @@
 				A7D3263C28A0EDD6001D721F /* Supports */,
 				A7D3263B28A0EDCB001D721F /* Resource */,
 				A79EF89E28A0FA7400AED6D1 /* DateManager.swift */,
+				A75A8F1D28A29E80004E7858 /* CrawlManager.swift */,
 			);
 			path = DeunDeunHaSom;
 			sourceTree = "<group>";
@@ -110,6 +117,10 @@
 			dependencies = (
 			);
 			name = DeunDeunHaSom;
+			packageProductDependencies = (
+				A75A8F2028A29E97004E7858 /* SwiftSoup */,
+				A75A8F2328A2A1C6004E7858 /* Alamofire */,
+			);
 			productName = DeunDeunHaSom;
 			productReference = A7D3262428A0ED3A001D721F /* DeunDeunHaSom.app */;
 			productType = "com.apple.product-type.application";
@@ -138,6 +149,10 @@
 				Base,
 			);
 			mainGroup = A7D3261B28A0ED3A001D721F;
+			packageReferences = (
+				A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = A7D3262528A0ED3A001D721F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -165,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A79EF89F28A0FA7400AED6D1 /* DateManager.swift in Sources */,
+				A75A8F1E28A29E80004E7858 /* CrawlManager.swift in Sources */,
 				A7D3262828A0ED3A001D721F /* AppDelegate.swift in Sources */,
 				A7D3262A28A0ED3A001D721F /* SceneDelegate.swift in Sources */,
 				A79EF89D28A0F94F00AED6D1 /* DateUIView.swift in Sources */,
@@ -378,6 +394,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A75A8F2028A29E97004E7858 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		A75A8F2328A2A1C6004E7858 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A7D3261C28A0ED3A001D721F /* Project object */;
 }

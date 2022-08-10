@@ -9,6 +9,7 @@ import UIKit
 class DateUIView: UIView {
     
     var dateManager = DateManager()
+    let crawlManager = CrawlManager()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()

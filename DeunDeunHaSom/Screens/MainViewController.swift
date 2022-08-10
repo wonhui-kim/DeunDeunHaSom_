@@ -25,6 +25,8 @@ class MainViewController: UIViewController {
         configureDateView()
         configureMealTable()
         configureMealTableHeader()
+        
+        CrawlManager.crawlStaffMeal()
     }
     
     override func viewDidLayoutSubviews() {
