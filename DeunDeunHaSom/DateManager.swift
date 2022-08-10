@@ -24,8 +24,15 @@ class DateManager {
         return dateFormatter.string(from: userDate)
     }
     
-    func fetchDay() -> String {
-        dateFormatter.dateFormat = "(E요일)"
+    func fetchDayEn() -> String {
+        dateFormatter.dateFormat = "E"
+        dateFormatter.locale = Locale(identifier: "en")
+        
+        return dateFormatter.string(from: userDate)
+    }
+    
+    func fetchDayKor() -> String {
+        dateFormatter.dateFormat = "EEEE"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         
         return dateFormatter.string(from: userDate)

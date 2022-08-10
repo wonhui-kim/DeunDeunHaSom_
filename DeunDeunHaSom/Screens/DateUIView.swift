@@ -22,7 +22,7 @@ class DateUIView: UIView {
     
     private lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = dateManager.fetchDay()
+        label.text = dateManager.fetchDayKor()
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         
@@ -58,14 +58,14 @@ class DateUIView: UIView {
     func addDateAndDay() {
         dateManager.addDate()
         dateLabel.text = dateManager.fetchDate()
-        dayLabel.text = dateManager.fetchDay()
+        dayLabel.text = dateManager.fetchDayKor()
     }
     
     @objc
     func subtractDateAndDay() {
         dateManager.subtractDate()
         dateLabel.text = dateManager.fetchDate()
-        dayLabel.text = dateManager.fetchDay()
+        dayLabel.text = dateManager.fetchDayKor()
     }
     
     override init(frame: CGRect) {

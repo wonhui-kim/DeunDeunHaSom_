@@ -11,7 +11,7 @@ import Alamofire
 struct CrawlManager {
     
     static func crawlStaffMeal() {
-        let urlStr = "https://www.dongduk.ac.kr/kor/life/cafeteria.do"
+        let urlStr = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json"
         //let classPath = "#ulWeekDtInfo > li:nth-child(1) > dl > dd:nth-child(14)"
         
         
@@ -22,10 +22,11 @@ struct CrawlManager {
             
             do {
                 let doc: Document = try SwiftSoup.parse(html)
+                print(doc)
                 let elements: Elements = try doc.select("dl > dd")
-                for element in elements {
-                    print(try element.text())
-                }
+//                for element in elements {
+//                    print(try element.text())
+//                }
             } catch {
                 print("crawl error")
             }
