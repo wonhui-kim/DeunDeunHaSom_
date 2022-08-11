@@ -24,6 +24,13 @@ class DateManager {
         return dateFormatter.string(from: userDate)
     }
     
+    func fetchTodayKor() -> String {
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter.string(from: Date())
+    }
+    
     func fetchDayEn() -> String {
         dateFormatter.dateFormat = "E"
         dateFormatter.locale = Locale(identifier: "en")
@@ -36,6 +43,15 @@ class DateManager {
         dateFormatter.locale = Locale(identifier: "ko_KR")
         
         return dateFormatter.string(from: userDate)
+    }
+    
+    func dayAfterTomorrowKor() -> String {
+        var dayAfterTomorrow = Date()
+        if let addDay = Calendar.current.date(byAdding: .day, value: 2, to: dayAfterTomorrow) {
+            dayAfterTomorrow = addDay
+        }
+        
+        return dateFormatter.string(from: dayAfterTomorrow)
     }
     
     func addDate() {

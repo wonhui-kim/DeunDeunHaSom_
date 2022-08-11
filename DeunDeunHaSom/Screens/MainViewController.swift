@@ -36,9 +36,6 @@ class MainViewController: UIViewController {
         configureDateView()
         configureMealTable()
         configureMealTableHeader()
-        
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,7 +45,7 @@ class MainViewController: UIViewController {
         mealTable.layer.cornerRadius = 22
         mealTable.separatorStyle = .none
         mealTable.rowHeight = 30
-        mealTable.isScrollEnabled = false
+//        mealTable.isScrollEnabled = false
         mealTable.allowsSelection = false
     }
     
@@ -123,7 +120,6 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController {
-    
     func getMultipleAll(day: String, completion: @escaping (Result<[String], Error>) -> Void) {
         let ref = firestore.collection("staffMeal").document("week")
         
@@ -131,15 +127,16 @@ extension MainViewController {
             if let err = err {
                 completion(.failure(err))
             } else {
+                var temp = [String]()
                 for document in querySnapshot!.documents {
                     let data = document.data()
-                    var temp = [String]()
                     for i in 0..<data.count {
                         let strIndex = String(i)
                         temp.append(data[strIndex] as! String)
                     }
-                    completion(.success(temp))
+//                    completion(.success(temp))
                 }
+                completion(.success(temp))
             }
         }
     }
@@ -147,19 +144,15 @@ extension MainViewController {
     func updateMeal(day: String) {
         getMultipleAll(day: day) { [weak self] results in
             switch results {
-            case .success(let info):
+            case .success(var info):
+                if info.isEmpty { //데이터가 없을 경우
+                    info.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲"])
+                }
                 self?.meal = info
                 self?.mealTable.reloadData()
             case .failure(let error):
                 print(error)
             }
-        }
-    }
-    
-    class fetchData {
-        func fetchUpdateMeal(day: String) {
-            let main = MainViewController()
-            main.updateMeal(day: day)
         }
     }
 }

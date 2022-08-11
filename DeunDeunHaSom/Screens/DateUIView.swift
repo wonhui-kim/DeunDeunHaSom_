@@ -36,8 +36,11 @@ class DateUIView: UIView {
         button.setImage(image, for: .normal)
         button.tintColor = .white
         
-        button.addTarget(self, action: #selector(subtractDateAndDay), for: .touchUpInside)
+        if dayLabel.text! == dateManager.fetchTodayKor() {
+            button.isEnabled = false
+        }
         
+        button.addTarget(self, action: #selector(subtractDateAndDay), for: .touchUpInside)
         
         return button
     }()
@@ -60,6 +63,14 @@ class DateUIView: UIView {
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
         parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
+        
+        if dayLabel.text! != dateManager.fetchTodayKor() {
+            leftButton.isEnabled = true
+        }
+        
+        if dayLabel.text == dateManager.dayAfterTomorrowKor() {
+            rightButton.isEnabled = false
+        }
     }
     
     @objc
@@ -68,6 +79,14 @@ class DateUIView: UIView {
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
         parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
+        
+        if dayLabel.text! == dateManager.fetchTodayKor() {
+            leftButton.isEnabled = false
+        }
+        
+        if dayLabel.text != dateManager.dayAfterTomorrowKor() {
+            rightButton.isEnabled = true
+        }
     }
     
     override init(frame: CGRect) {
