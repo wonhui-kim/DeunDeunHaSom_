@@ -14,7 +14,6 @@
 		A75A8F2928A33DC5004E7858 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2828A33DC5004E7858 /* FirebaseFirestoreSwift */; };
 		A788938E28A34AA800791702 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A788938D28A34AA800791702 /* GoogleService-Info.plist */; };
 		A788939128A34AF000791702 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A788939028A34AF000791702 /* FirebaseAnalytics */; };
-		A788939328A3521F00791702 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A788939228A3521F00791702 /* NetworkManager.swift */; };
 		A79EF89D28A0F94F00AED6D1 /* DateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79EF89C28A0F94F00AED6D1 /* DateUIView.swift */; };
 		A79EF89F28A0FA7400AED6D1 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79EF89E28A0FA7400AED6D1 /* DateManager.swift */; };
 		A7D3262828A0ED3A001D721F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3262728A0ED3A001D721F /* AppDelegate.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		A75A8F1D28A29E80004E7858 /* CrawlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrawlManager.swift; sourceTree = "<group>"; };
 		A788938D28A34AA800791702 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		A788939228A3521F00791702 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A79EF89C28A0F94F00AED6D1 /* DateUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUIView.swift; sourceTree = "<group>"; };
 		A79EF89E28A0FA7400AED6D1 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		A7D3262428A0ED3A001D721F /* DeunDeunHaSom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeunDeunHaSom.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +77,6 @@
 				A7D3263C28A0EDD6001D721F /* Supports */,
 				A7D3263B28A0EDCB001D721F /* Resource */,
 				A79EF89E28A0FA7400AED6D1 /* DateManager.swift */,
-				A788939228A3521F00791702 /* NetworkManager.swift */,
 				A75A8F1D28A29E80004E7858 /* CrawlManager.swift */,
 			);
 			path = DeunDeunHaSom;
@@ -200,7 +197,6 @@
 				A79EF89F28A0FA7400AED6D1 /* DateManager.swift in Sources */,
 				A75A8F1E28A29E80004E7858 /* CrawlManager.swift in Sources */,
 				A7D3262828A0ED3A001D721F /* AppDelegate.swift in Sources */,
-				A788939328A3521F00791702 /* NetworkManager.swift in Sources */,
 				A7D3262A28A0ED3A001D721F /* SceneDelegate.swift in Sources */,
 				A79EF89D28A0F94F00AED6D1 /* DateUIView.swift in Sources */,
 				A7D3264028A0EEB5001D721F /* MainViewController.swift in Sources */,

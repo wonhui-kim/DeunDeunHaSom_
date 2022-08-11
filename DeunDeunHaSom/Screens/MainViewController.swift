@@ -4,11 +4,17 @@
 //
 //  Created by 김원희 on 2022/08/08.
 //
+
+import FirebaseCore
+import FirebaseFirestore
 import UIKit
 
 class MainViewController: UIViewController {
     
-    let meal: [String] = ["잡곡밥", "&덮밥용 마파두부", "파송송 계란국", "탕수육*새콤달콤소스", "노각양파무침", "반달단무지", "배추김치"]
+    private let dateManager = DateManager()
+    private let firestore = Firestore.firestore()
+    
+    var meal = [String]()
     
     private lazy var mealTable: UITableView = {
         let table = UITableView()
@@ -26,8 +32,7 @@ class MainViewController: UIViewController {
         configureMealTable()
         configureMealTableHeader()
         
-//        CrawlManager.crawlStaffMeal()
-        
+        updateMeal(day: dateManager.fetchDayEn().lowercased())
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,6 +113,48 @@ class MainViewController: UIViewController {
         }
         
         mealTable.tableHeaderView = header
+    }
+}
+
+extension MainViewController {
+    
+    func getMultipleAll(day: String, completion: @escaping (Result<[String], Error>) -> Void) {
+        let ref = firestore.collection("staffMeal").document("week")
+        
+        ref.collection(day).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                completion(.failure(err))
+            } else {
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    var temp = [String]()
+                    for i in 0..<data.count {
+                        let strIndex = String(i)
+                        temp.append(data[strIndex] as! String)
+                    }
+                    completion(.success(temp))
+                }
+            }
+        }
+    }
+    
+    func updateMeal(day: String) {
+        getMultipleAll(day: day) { [weak self] results in
+            switch results {
+            case .success(let info):
+                self?.meal = info
+                self?.mealTable.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    class fetchData {
+        func fetchUpdateMeal(day: String) {
+            let main = MainViewController()
+            main.updateMeal(day: day)
+        }
     }
 }
 
