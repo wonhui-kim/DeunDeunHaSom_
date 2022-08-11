@@ -9,6 +9,7 @@ import UIKit
 class DateUIView: UIView {
     
     var dateManager = DateManager()
+    private var parent: MainViewController?
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
@@ -58,6 +59,7 @@ class DateUIView: UIView {
         dateManager.addDate()
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
+        parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
     }
     
     @objc
@@ -65,6 +67,7 @@ class DateUIView: UIView {
         dateManager.subtractDate()
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
+        parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
     }
     
     override init(frame: CGRect) {
@@ -78,6 +81,10 @@ class DateUIView: UIView {
 }
 
 extension DateUIView {
+    
+    func setParentViewController(view: MainViewController) {
+        parent = view
+    }
     
     private func configureSubviews() {
         [dateLabel, dayLabel, leftButton, rightButton].forEach { component in

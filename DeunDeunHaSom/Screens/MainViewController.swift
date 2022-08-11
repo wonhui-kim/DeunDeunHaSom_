@@ -27,12 +27,18 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mealTable.dataSource = self
+        dateView.setParentViewController(view: self)
+        
+        DispatchQueue.main.async {
+            self.updateMeal(day: self.dateManager.fetchDayEn().lowercased())
+        }
         
         configureDateView()
         configureMealTable()
         configureMealTableHeader()
         
-        updateMeal(day: dateManager.fetchDayEn().lowercased())
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
