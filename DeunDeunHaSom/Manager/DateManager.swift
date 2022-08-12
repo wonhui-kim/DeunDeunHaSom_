@@ -12,23 +12,10 @@ class DateManager {
     let dateFormatter = DateFormatter()
     var userDate = Date()
     
-    func fetchYear() -> String {
-        dateFormatter.dateFormat = "yyyy"
-        
-        return dateFormatter.string(from: userDate)
-    }
-    
     func fetchDate() -> String {
         dateFormatter.dateFormat = "MM. dd"
         
         return dateFormatter.string(from: userDate)
-    }
-    
-    func fetchTodayKor() -> String {
-        dateFormatter.dateFormat = "EEEE"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        
-        return dateFormatter.string(from: Date())
     }
     
     func fetchDayEn() -> String {
@@ -43,6 +30,13 @@ class DateManager {
         dateFormatter.locale = Locale(identifier: "ko_KR")
         
         return dateFormatter.string(from: userDate)
+    }
+    
+    func fetchTodayKor() -> String {
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter.string(from: Date())
     }
     
     func dayAfterTomorrowKor() -> String {

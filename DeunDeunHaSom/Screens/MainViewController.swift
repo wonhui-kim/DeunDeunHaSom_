@@ -12,7 +12,6 @@ class MainViewController: UIViewController {
     private let dateManager = DateManager()
     private let networkManager = NetworkManager()
     
-    let restaurants = ["교직원 식당", "학생 식당"]
     var staffMeal = [String]()
     var studentMeal = [String]()
     
@@ -151,25 +150,21 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return restaurants.count
+        return 2
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return restaurants[section]
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+        
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? TableSectionHeader else {
+            return UIView()
+        }
+        
+        header.configureSectionHeader(with: section)
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else {return}
-        header.textLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        header.textLabel?.textColor = .white
     }
 }

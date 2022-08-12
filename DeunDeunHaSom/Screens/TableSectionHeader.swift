@@ -8,7 +8,9 @@
 import UIKit
 
 class TableSectionHeader: UITableViewHeaderFooterView {
-    static let identifier = "TableSectionHeader"
+    
+    let restaurants = ["교직원 식당", "학생 식당"]
+    let hours = ["(11:30 - 13:00)", "(11:00 - 14:00)"]
     
     private lazy var restaurantName: UILabel = {
         let label = UILabel()
@@ -33,6 +35,11 @@ class TableSectionHeader: UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    func configureSectionHeader(with type: Int) {
+        restaurantName.text = restaurants[type]
+        operatingHours.text = hours[type]
     }
 }
 
