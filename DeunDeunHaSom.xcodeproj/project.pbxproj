@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A75A8F2128A29E97004E7858 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2028A29E97004E7858 /* SwiftSoup */; };
-		A75A8F2428A2A1C6004E7858 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2328A2A1C6004E7858 /* Alamofire */; };
 		A75A8F2728A33DC5004E7858 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2628A33DC5004E7858 /* FirebaseFirestore */; };
 		A75A8F2928A33DC5004E7858 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2828A33DC5004E7858 /* FirebaseFirestoreSwift */; };
 		A788938E28A34AA800791702 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A788938D28A34AA800791702 /* GoogleService-Info.plist */; };
@@ -25,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A71D360428A621C600A9BB2B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A788938D28A34AA800791702 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A788939C28A5E9FE00791702 /* TableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		A788939E28A5ECEE00791702 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -44,8 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75A8F2128A29E97004E7858 /* SwiftSoup in Frameworks */,
-				A75A8F2428A2A1C6004E7858 /* Alamofire in Frameworks */,
 				A75A8F2728A33DC5004E7858 /* FirebaseFirestore in Frameworks */,
 				A788939128A34AF000791702 /* FirebaseAnalytics in Frameworks */,
 				A75A8F2928A33DC5004E7858 /* FirebaseFirestoreSwift in Frameworks */,
@@ -138,8 +135,6 @@
 			);
 			name = DeunDeunHaSom;
 			packageProductDependencies = (
-				A75A8F2028A29E97004E7858 /* SwiftSoup */,
-				A75A8F2328A2A1C6004E7858 /* Alamofire */,
 				A75A8F2628A33DC5004E7858 /* FirebaseFirestore */,
 				A75A8F2828A33DC5004E7858 /* FirebaseFirestoreSwift */,
 				A788939028A34AF000791702 /* FirebaseAnalytics */,
@@ -170,13 +165,11 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = A7D3261B28A0ED3A001D721F;
 			packageReferences = (
-				A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A75A8F2528A33DC5004E7858 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				A788938F28A34AF000791702 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = A7D3262528A0ED3A001D721F /* Products */;
 			projectDirPath = "";
@@ -222,6 +215,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A7D3263328A0ED3B001D721F /* Base */,
+				A71D360428A621C600A9BB2B /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -233,6 +227,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -279,6 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "든든하솜";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -293,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -333,6 +330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "든든하솜";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -367,7 +365,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -395,7 +393,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -423,31 +421,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		A75A8F2528A33DC5004E7858 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		A788938F28A34AF000791702 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -458,16 +432,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A75A8F2028A29E97004E7858 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A75A8F1F28A29E97004E7858 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		A75A8F2328A2A1C6004E7858 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A75A8F2228A2A1C6004E7858 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		A75A8F2628A33DC5004E7858 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A75A8F2528A33DC5004E7858 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
