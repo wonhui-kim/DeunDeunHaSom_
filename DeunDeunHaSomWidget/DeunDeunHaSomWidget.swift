@@ -2,7 +2,7 @@
 //  DeunDeunHaSomWidget.swift
 //  DeunDeunHaSomWidget
 //
-//  Created by 김원희 on 2022/08/25.
+//  Created by 김원희 on 2022/08/17.
 //
 
 import WidgetKit
@@ -16,7 +16,6 @@ struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), staffMeal: [String](), studentMeal: [String]())
     }
-    
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         networkManager.TwoRestaurant(day: dateManager.fetchTodayEn().lowercased()) { results in
@@ -38,8 +37,8 @@ struct Provider: TimelineProvider {
         }
     }
     
-    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+        
         networkManager.TwoRestaurant(day: dateManager.fetchTodayEn().lowercased()) { results in
             switch results {
             case .success(var info):
@@ -53,7 +52,7 @@ struct Provider: TimelineProvider {
                 let entry = Entry(date: Date(), staffMeal: info.staff, studentMeal: info.student)
                 entries.append(entry)
                 
-                let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())
+                let entryDate = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
                 let timeline = Timeline(entries: entries, policy: .after(entryDate!))
                 completion(timeline)
             case .failure(let error):
@@ -74,9 +73,7 @@ struct DeunDeunHaSomWidgetEntryView : View {
     
     var entry: Provider.Entry
     
-    
     var body: some View {
-        Text(entry.date, style: .time)
         sizeBody()
     }
     
@@ -101,8 +98,6 @@ struct DeunDeunHaSomWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             DeunDeunHaSomWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
         .configurationDisplayName("든든하솜")
         .description("든든하솜 위젯")
         .supportedFamilies([.systemSmall, .systemMedium])
@@ -111,6 +106,7 @@ struct DeunDeunHaSomWidget: Widget {
 
 struct SmallWidget: View {
     var entry: Provider.Entry
+    
     var body: some View {
         VStack {
             HStack {
@@ -143,7 +139,7 @@ struct MediumWidget: View {
                     Text("(~13:00)")
                         .font(.system(size: 12))
                 }
-                .frame(width: 160, height: 20, alignment: .center)
+                .frame(width: 169, height: 20, alignment: .center)
                 VStack {
                     ForEach(entry.staffMeal, id: \.self) {
                         Text($0)
@@ -151,17 +147,16 @@ struct MediumWidget: View {
                     }
                 }
             }
-            .frame(width: 160, height: 160)
-            .background(Color.gray)
+            .frame(width: 169, height: 169)
             Divider()
             VStack {
                 HStack {
                     Text("학생 식당")
                         .font(.system(size: 15, weight: .bold))
                     Text("(~14:00)")
-                        .font(.system(size: 12))
+                        .font(.system(size: 12, weight: .medium))
                 }
-                .frame(width: 160, height: 20, alignment: .center)
+                .frame(width: 169, height: 20, alignment: .center)
                 VStack {
                     ForEach(entry.studentMeal, id: \.self) {
                         Text($0)
@@ -169,8 +164,8 @@ struct MediumWidget: View {
                     }
                 }
             }
-            .frame(width: 160, height: 160)
+            .frame(width: 169, height: 169)
         }
-        .frame(width: 320, height: 160)
+        .frame(width: 360, height: 169)
     }
 }
