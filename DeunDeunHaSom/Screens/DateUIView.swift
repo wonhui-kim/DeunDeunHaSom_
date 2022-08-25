@@ -36,10 +36,6 @@ class DateUIView: UIView {
         button.setImage(image, for: .normal)
         button.tintColor = .white
         
-        if dayLabel.text! == dateManager.fetchTodayKor() {
-            button.isEnabled = false
-        }
-        
         button.addTarget(self, action: #selector(subtractDateAndDay), for: .touchUpInside)
         
         return button
@@ -65,17 +61,13 @@ class DateUIView: UIView {
         
         parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
         
-        if dayLabel.text! != dateManager.fetchTodayKor() {
+        if dayLabel.text! != "월요일" {
             leftButton.isEnabled = true
         }
         
-        if dayLabel.text == dateManager.dayAfterTomorrowKor() {
+        if dayLabel.text == "금요일" {
             rightButton.isEnabled = false
         }
-        
-//        if dayLabel.text == dateManager.dayAfterTomorrowKor() {
-//            rightButton.isEnabled = false
-//        }
     }
     
     @objc
@@ -86,11 +78,11 @@ class DateUIView: UIView {
         
         parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
         
-        if dayLabel.text! == dateManager.fetchTodayKor() {
+        if dayLabel.text! == "월요일" {
             leftButton.isEnabled = false
         }
         
-        if dayLabel.text != dateManager.dayAfterTomorrowKor() {
+        if dayLabel.text != "금요일" {
             rightButton.isEnabled = true
         }
     }
