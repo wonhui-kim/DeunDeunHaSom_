@@ -72,6 +72,10 @@ class DateUIView: UIView {
         if dayLabel.text == dateManager.dayAfterTomorrowKor() {
             rightButton.isEnabled = false
         }
+        
+//        if dayLabel.text == dateManager.dayAfterTomorrowKor() {
+//            rightButton.isEnabled = false
+//        }
     }
     
     @objc

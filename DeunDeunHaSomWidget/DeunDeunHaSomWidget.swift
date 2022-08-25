@@ -52,7 +52,7 @@ struct Provider: TimelineProvider {
                 let entry = Entry(date: Date(), staffMeal: info.staff, studentMeal: info.student)
                 entries.append(entry)
                 
-                let entryDate = Calendar.current.date(byAdding: .minute, value: 1, to: Date())
+                let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())
                 let timeline = Timeline(entries: entries, policy: .after(entryDate!))
                 completion(timeline)
             case .failure(let error):
