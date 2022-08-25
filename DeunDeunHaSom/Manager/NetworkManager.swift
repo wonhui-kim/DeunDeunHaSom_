@@ -9,25 +9,47 @@ import FirebaseCore
 import FirebaseFirestore
 import Foundation
 
+struct Meal {
+    var staff: [String]
+    var student: [String]
+}
+
 class NetworkManager {
-    private let firestore = Firestore.firestore()
+    static let shared = NetworkManager()
+    var firestore: Firestore
     
-    func getMultipleAll(restaurant: String, day: String, completion: @escaping (Result<[String], Error>) -> Void) {
-        let ref = firestore.collection(restaurant).document("week")
+    private init() {
+        FirebaseApp.configure()
+        firestore = Firestore.firestore()
+    }
+    
+    func TwoRestaurant(day: String, completion: @escaping (Result<Meal, Error>) -> Void) {
+        var staff = [String]()
+        var student = [String]()
         
-        ref.collection(day).getDocuments { (querySnapshot, err) in
+        let ref = firestore.collection(day)
+        ref.whereField(FieldPath.documentID(), in: ["staffMeal", "studentMeal"]).addSnapshotListener {
+            querySnapShot, err in
             if let err = err {
                 completion(.failure(err))
             } else {
-                var temp = [String]()
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-                    for i in 0..<data.count {
-                        let strIndex = String(i)
-                        temp.append(data[strIndex] as! String)
+                for document in querySnapShot!.documents {
+                    if document.documentID == "staffMeal" {
+                        //                    print(document.data())
+                        let data = document.data()
+                        for i in 0..<data.count {
+                            let strIndex = String(i)
+                            staff.append(data[strIndex] as! String)
+                        }
+                    } else {
+                        let data = document.data()
+                        for i in 0..<data.count {
+                            let strIndex = String(i)
+                            student.append(data[strIndex] as! String)
+                        }
                     }
                 }
-                completion(.success(temp))
+                completion(.success(Meal(staff: staff, student: student)))
             }
         }
     }

@@ -9,6 +9,8 @@ import UIKit
 
 class DateManager {
     
+    static let shared = DateManager()
+    
     let dateFormatter = DateFormatter()
     var userDate = Date()
     
@@ -24,6 +26,13 @@ class DateManager {
         
         return dateFormatter.string(from: userDate)
     }
+    
+    func fetchTodayEn() -> String {
+            dateFormatter.dateFormat = "E"
+            dateFormatter.locale = Locale(identifier: "en")
+            
+            return dateFormatter.string(from: Date())
+        }
     
     func fetchDayKor() -> String {
         dateFormatter.dateFormat = "EEEE"

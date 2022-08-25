@@ -63,8 +63,7 @@ class DateUIView: UIView {
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
         
-        parent?.updateMeal(restaurant: "staffMeal", day: dateManager.fetchDayEn().lowercased())
-        parent?.updateMeal(restaurant: "studentMeal", day: dateManager.fetchDayEn().lowercased())
+        parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
         
         if dayLabel.text! != dateManager.fetchTodayKor() {
             leftButton.isEnabled = true
@@ -80,8 +79,8 @@ class DateUIView: UIView {
         dateManager.subtractDate()
         dateLabel.text = dateManager.fetchDate()
         dayLabel.text = dateManager.fetchDayKor()
-        parent?.updateMeal(restaurant: "staffMeal", day: dateManager.fetchDayEn().lowercased())
-        parent?.updateMeal(restaurant: "studentMeal", day: dateManager.fetchDayEn().lowercased())
+        
+        parent?.updateMeal(day: dateManager.fetchDayEn().lowercased())
         
         if dayLabel.text! == dateManager.fetchTodayKor() {
             leftButton.isEnabled = false

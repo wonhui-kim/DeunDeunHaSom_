@@ -9,8 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private let dateManager = DateManager()
-    private let networkManager = NetworkManager()
+    private let dateManager = DateManager.shared
+    private let networkManager = NetworkManager.shared
     
     var staffMeal = [String]()
     var studentMeal = [String]()
@@ -31,10 +31,7 @@ class MainViewController: UIViewController {
         dateView.setParentViewController(view: self)
         
         DispatchQueue.main.async {
-            self.updateMeal(restaurant: "staffMeal", day: self.dateManager.fetchDayEn().lowercased())
-        }
-        DispatchQueue.main.async {
-            self.updateMeal(restaurant: "studentMeal", day: self.dateManager.fetchDayEn().lowercased())
+            self.updateMeal(day: self.dateManager.fetchDayEn().lowercased())
         }
         
         configureDateView()
@@ -81,18 +78,18 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController {
-    func updateMeal(restaurant: String, day: String) {
-        networkManager.getMultipleAll(restaurant: restaurant, day: day) { [weak self] results in
+    func updateMeal(day: String) {
+        networkManager.TwoRestaurant(day: day) { [weak self] results in
             switch results {
             case .success(var info):
-                if info.isEmpty { //데이터가 없을 경우
-                    info.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
-                }
-                if restaurant == "staffMeal" {
-                    self?.staffMeal = info
-                } else {
-                    self?.studentMeal = info
-                }
+                if info.staff.isEmpty {
+                     info.staff.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
+                 }
+                 if info.student.isEmpty {
+                     info.student.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
+                 }
+                self?.staffMeal = info.staff
+                self?.studentMeal = info.student
                 self?.mealTable.reloadData()
             case .failure(let error):
                 print(error)
@@ -154,8 +151,6 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
-        
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? TableSectionHeader else {
             return UIView()
         }
