@@ -14,7 +14,6 @@ class TableSectionHeader: UITableViewHeaderFooterView {
     
     private lazy var restaurantName: UILabel = {
         let label = UILabel()
-        label.text = "교직원 식당"
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
         return label
@@ -22,7 +21,6 @@ class TableSectionHeader: UITableViewHeaderFooterView {
     
     private lazy var operatingHours: UILabel = {
         let label = UILabel()
-        label.text = "(11:30 - 13:00)"
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = .white
         return label

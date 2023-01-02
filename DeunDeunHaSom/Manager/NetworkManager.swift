@@ -24,33 +24,32 @@ class NetworkManager {
     }
     
     func TwoRestaurant(day: String, completion: @escaping (Result<Meal, Error>) -> Void) {
-        var staff = [String]()
-        var student = [String]()
-        
         let ref = firestore.collection(day)
         ref.whereField(FieldPath.documentID(), in: ["staffMeal", "studentMeal"]).addSnapshotListener {
             querySnapShot, err in
             if let err = err {
                 completion(.failure(err))
-            } else {
-                for document in querySnapShot!.documents {
-                    if document.documentID == "staffMeal" {
-                        //                    print(document.data())
-                        let data = document.data()
-                        for i in 0..<data.count {
-                            let strIndex = String(i)
-                            staff.append(data[strIndex] as! String)
-                        }
-                    } else {
-                        let data = document.data()
-                        for i in 0..<data.count {
-                            let strIndex = String(i)
-                            student.append(data[strIndex] as! String)
-                        }
+            }
+            
+            var staff = [String]()
+            var student = [String]()
+            
+            for document in querySnapShot!.documents {
+                if document.documentID == "staffMeal" {
+                    let data = document.data()
+                    for i in 0..<data.count {
+                        let strIndex = String(i)
+                        staff.append(data[strIndex] as! String)
+                    }
+                } else if document.documentID == "studentMeal"{
+                    let data = document.data()
+                    for i in 0..<data.count {
+                        let strIndex = String(i)
+                        student.append(data[strIndex] as! String)
                     }
                 }
-                completion(.success(Meal(staff: staff, student: student)))
             }
+            completion(.success(Meal(staff: staff, student: student)))
         }
     }
 }
