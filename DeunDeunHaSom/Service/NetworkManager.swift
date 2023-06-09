@@ -5,8 +5,6 @@
 //  Created by 김원희 on 2022/08/12.
 //
 
-import FirebaseCore
-import FirebaseFirestore
 import Foundation
 
 enum FetchError: Error {
@@ -16,48 +14,45 @@ enum FetchError: Error {
     case invalidStatusCode
 }
 
-struct Meal {
-    var staff: [String]
-    var student: [String]
-}
-
-class NetworkManager {
+final class NetworkManager {
+    
     static let shared = NetworkManager()
-    var firestore: Firestore
     
-    private init() {
-        FirebaseApp.configure()
-        firestore = Firestore.firestore()
-    }
+    private init() { }
     
-    func TwoRestaurant(day: String, completion: @escaping (Result<Meal, Error>) -> Void) {
-        let ref = firestore.collection(day)
-        ref.whereField(FieldPath.documentID(), in: ["staffMeal", "studentMeal"]).addSnapshotListener {
-            querySnapShot, err in
-            if let err = err {
-                completion(.failure(err))
-            }
-            
-            var staff = [String]()
-            var student = [String]()
-            
-            for document in querySnapShot!.documents {
-                if document.documentID == "staffMeal" {
-                    let data = document.data()
-                    for i in 0..<data.count {
-                        let strIndex = String(i)
-                        staff.append(data[strIndex] as! String)
-                    }
-                } else if document.documentID == "studentMeal"{
-                    let data = document.data()
-                    for i in 0..<data.count {
-                        let strIndex = String(i)
-                        student.append(data[strIndex] as! String)
-                    }
-                }
-            }
-            completion(.success(Meal(staff: staff, student: student)))
+    func requestData(url: String, parameters: [String:String]) async throws -> [String] {
+        
+        guard let url = URL(string: url) else {
+            throw FetchError.invalidURL
         }
+        
+        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let requestBody = formDataString.data(using: .utf8)
+        request.httpBody = requestBody
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            throw FetchError.invalidStatusCode
+        }
+        
+        let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
+        
+        var results = [String]()
+        
+        cafeteriaResponse.cafeteriaList.forEach { menu in
+            if (31...35).contains(menu.type) {
+                guard let eachMenu = menu.content else {
+                    results.append("오늘은 운영하지 않아요 🥲")
+                    return
+                }
+                results.append(eachMenu)
+            }
+        }
+        
+        return results
     }
     
     func todayMenus(url: String, parameters: [String:String], completion: @escaping (Result<Restaurant, Error>) -> Void) {
@@ -75,7 +70,7 @@ class NetworkManager {
         request.httpBody = requestBody
         
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
-
+            
             if let error = error {
                 completion(.failure(error.localizedDescription as! Error))
                 return
@@ -101,7 +96,7 @@ class NetworkManager {
                 }
                 
                 let todayIndex = DateManager.shared.todayIndex()
-        
+                
                 let todayResult = results[todayIndex].split(separator: "\r\n").map {
                     String($0)
                 }

@@ -5,7 +5,6 @@
 //  Created by 김원희 on 2022/08/08.
 //
 import Foundation
-import UIKit
 
 class DateManager {
     
