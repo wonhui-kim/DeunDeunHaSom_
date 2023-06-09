@@ -15,7 +15,8 @@
 		A7116E3E28B71C22007C99F1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A788939E28A5ECEE00791702 /* NetworkManager.swift */; };
 		A7116E3F28B71C2C007C99F1 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79EF89E28A0FA7400AED6D1 /* DateManager.swift */; };
 		A7116E4128B71C71007C99F1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A7116E4028B71C71007C99F1 /* FirebaseFirestore */; };
-		A75A8F2728A33DC5004E7858 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2628A33DC5004E7858 /* FirebaseFirestore */; };
+		A74FED9F2A32C62300E7A9BC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A74FED9E2A32C62300E7A9BC /* FirebaseFirestore */; };
+		A74FEDA22A32C66A00E7A9BC /* Memu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74FEDA12A32C66A00E7A9BC /* Memu.swift */; };
 		A75A8F2928A33DC5004E7858 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A75A8F2828A33DC5004E7858 /* FirebaseFirestoreSwift */; };
 		A7647C7D2963164D0021D511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7647C7C2963164D0021D511 /* GoogleService-Info.plist */; };
 		A7647C7E2963164D0021D511 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7647C7C2963164D0021D511 /* GoogleService-Info.plist */; };
@@ -63,6 +64,7 @@
 		A7116E3428B7175F007C99F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7116E3628B7175F007C99F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A71D360428A621C600A9BB2B /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A74FEDA12A32C66A00E7A9BC /* Memu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memu.swift; sourceTree = "<group>"; };
 		A7647C7C2963164D0021D511 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A788939C28A5E9FE00791702 /* TableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		A788939E28A5ECEE00791702 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -92,9 +94,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75A8F2728A33DC5004E7858 /* FirebaseFirestore in Frameworks */,
 				A788939128A34AF000791702 /* FirebaseAnalytics in Frameworks */,
 				A75A8F2928A33DC5004E7858 /* FirebaseFirestoreSwift in Frameworks */,
+				A74FED9F2A32C62300E7A9BC /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +120,14 @@
 				A7116E3628B7175F007C99F1 /* Info.plist */,
 			);
 			path = DeunDeunHaSomWidget;
+			sourceTree = "<group>";
+		};
+		A74FEDA02A32C66200E7A9BC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A74FEDA12A32C66A00E7A9BC /* Memu.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A78893A228A5F04C00791702 /* Manager */ = {
@@ -151,6 +161,7 @@
 		A7D3262628A0ED3A001D721F /* DeunDeunHaSom */ = {
 			isa = PBXGroup;
 			children = (
+				A74FEDA02A32C66200E7A9BC /* Model */,
 				A7647C7C2963164D0021D511 /* GoogleService-Info.plist */,
 				A78893A228A5F04C00791702 /* Manager */,
 				A7D3263D28A0EDDC001D721F /* Screens */,
@@ -228,9 +239,9 @@
 			);
 			name = DeunDeunHaSom;
 			packageProductDependencies = (
-				A75A8F2628A33DC5004E7858 /* FirebaseFirestore */,
 				A75A8F2828A33DC5004E7858 /* FirebaseFirestoreSwift */,
 				A788939028A34AF000791702 /* FirebaseAnalytics */,
+				A74FED9E2A32C62300E7A9BC /* FirebaseFirestore */,
 			);
 			productName = DeunDeunHaSom;
 			productReference = A7D3262428A0ED3A001D721F /* DeunDeunHaSom.app */;
@@ -315,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A788939F28A5ECEE00791702 /* NetworkManager.swift in Sources */,
+				A74FEDA22A32C66A00E7A9BC /* Memu.swift in Sources */,
 				A79EF89F28A0FA7400AED6D1 /* DateManager.swift in Sources */,
 				A788939D28A5E9FF00791702 /* TableSectionHeader.swift in Sources */,
 				A7D3262828A0ED3A001D721F /* AppDelegate.swift in Sources */,
@@ -630,7 +642,7 @@
 			package = A75A8F2528A33DC5004E7858 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		A75A8F2628A33DC5004E7858 /* FirebaseFirestore */ = {
+		A74FED9E2A32C62300E7A9BC /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A75A8F2528A33DC5004E7858 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
