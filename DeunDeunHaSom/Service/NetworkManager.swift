@@ -112,6 +112,7 @@ final class NetworkManager {
         task.resume()
     }
     
+    //오늘 전체 메뉴 중 교직원 식당 메뉴 추출
     func parseStaffMenu(from dayResult: [String]) -> [String] {
         var staffMenu = [String]()
         
@@ -129,10 +130,11 @@ final class NetworkManager {
         return staffMenu
     }
     
+    //오늘 전체 메뉴 중 학생 식당 메뉴 추출
     func parseStudentMenu(from dayResult: [String], startIndex: Int) -> [String] {
         var studentMenu = [String]()
         
-        if dayResult.count <= 1 {
+        if startIndex >= dayResult.endIndex {
             studentMenu = dayResult
         } else {
             for i in stride(from: startIndex, to: dayResult.count, by: 1) {

@@ -132,7 +132,7 @@ extension MenuTableView {
             mealTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             mealTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             mealTable.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            mealTable.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            mealTable.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(mealTableConstraints)

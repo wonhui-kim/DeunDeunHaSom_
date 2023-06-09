@@ -52,7 +52,8 @@ final class MenuStorage {
     
     func saveStudentMenus(menus: [[String]]) {
         for i in stride(from: 0, to: menus.count, by: 1) {
-            if menus[i].count <= 1 {
+            
+            if staffMenus[i].count+1 >= menus[i].endIndex {
                 studentMenus[i] = ["오늘은 운영하지 않아요 🥲"]
             } else {
                 var menu = [String]()
