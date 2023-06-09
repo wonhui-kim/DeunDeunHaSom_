@@ -13,22 +13,21 @@ struct Provider: TimelineProvider {
     let networkManager = NetworkManager.shared
     let dateManager = DateManager.shared
     
+    let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
+    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), staffMeal: [String](), studentMeal: [String]())
     }
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        networkManager.TwoRestaurant(day: dateManager.fetchTodayEn().lowercased()) { results in
-            switch results {
-            case .success(var info):
-                if info.staff.isEmpty {
-                    info.staff.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
-                }
-                if info.student.isEmpty {
-                    info.student.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
-                }
+        
+        let startEndDate = dateManager.startEndDate()
+        
+        networkManager.todayMenus(url: url, parameters: startEndDate) { result in
+            switch result {
+            case .success(let menus):
                 var entries: [SimpleEntry] = []
-                let entry = Entry(date: Date(), staffMeal: info.staff, studentMeal: info.student)
+                let entry = Entry(date: Date(), staffMeal: menus.staff, studentMeal: menus.student)
                 entries.append(entry)
                 completion(entry)
             case .failure(let error):
@@ -39,17 +38,13 @@ struct Provider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
-        networkManager.TwoRestaurant(day: dateManager.fetchTodayEn().lowercased()) { results in
-            switch results {
-            case .success(var info):
-                if info.staff.isEmpty {
-                    info.staff.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
-                }
-                if info.student.isEmpty {
-                    info.student.append(contentsOf: ["", "", "", "오늘은 운영하지 않아요 🥲", "", "", ""])
-                }
+        let startEndDate = dateManager.startEndDate()
+        
+        networkManager.todayMenus(url: url, parameters: startEndDate) { result in
+            switch result {
+            case .success(let menus):
                 var entries: [SimpleEntry] = []
-                let entry = Entry(date: Date(), staffMeal: info.staff, studentMeal: info.student)
+                let entry = Entry(date: Date(), staffMeal: menus.staff, studentMeal: menus.student)
                 entries.append(entry)
                 
                 let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())
@@ -160,7 +155,7 @@ struct MediumWidget: View {
                 VStack {
                     ForEach(entry.studentMeal, id: \.self) {
                         Text($0)
-                            .font(.system(size: 13))
+                            .font(.system(size: 11))
                     }
                 }
             }
