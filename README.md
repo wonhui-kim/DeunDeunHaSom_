@@ -1,4 +1,4 @@
-# DeunDeunHaSom
+# DeunDeunHaSom (든든하솜)
 동덕여대 학식 어플
 
 🔗 Appstore 링크
