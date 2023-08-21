@@ -11,6 +11,9 @@
 
 ### 🔗 Appstore 링크
 https://apps.apple.com/uz/app/든든하솜/id1639491992
+
 <img width="600" src="https://github.com/wonhui-kim/DeunDeunHaSom_/assets/96123303/f5a26262-127e-4e76-94e4-7718f7c0e206">
 
-### 트러블 슈팅
+### 🚀 트러블 슈팅
+- [[Trouble Shooting]: Firebase 데이터 중첩 문제 #3](https://github.com/wonhui-kim/DeunDeunHaSom_/issues/3)
+- [[Trouble Shooting]: 크롤링 실패 문제 #2](https://github.com/wonhui-kim/DeunDeunHaSom_/issues/2)
