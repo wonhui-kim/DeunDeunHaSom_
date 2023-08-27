@@ -24,8 +24,12 @@ final class MainViewController: UIViewController {
         view.backgroundColor = .systemBackground
         dateUIView.delegate = self
         
-        let startEndDate = dateManager.startEndDate()
-        fetchData(parameters: startEndDate)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchData(parameters: dateManager.startEndDate())
     }
 }
 

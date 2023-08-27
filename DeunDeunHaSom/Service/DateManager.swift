@@ -28,7 +28,6 @@ class DateManager {
         let add6Days = Calendar.current.date(byAdding: .day, value: 6, to: tempDate)!
         let endDateString = dateFormatter.string(from: add6Days)
         
-        //["STARTDATE": "20230527", "ENDDATE": "20230602"]
         return ["STARTDATE":startDateString, "ENDDATE":endDateString]
     }
     
@@ -89,10 +88,11 @@ class DateManager {
     
     func today() -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "E"
         
         let today = dateFormatter.string(from: Date())
-        
+
         return today
     }
     
@@ -112,64 +112,6 @@ class DateManager {
             return 3
         default: //금, 토
             return 4
-        }
-    }
-    
-    let dateFormatter = DateFormatter()
-    var userDate = Date()
-    
-    func fetchDate() -> String {
-        dateFormatter.dateFormat = "MM. dd"
-        
-        return dateFormatter.string(from: userDate)
-    }
-    
-    func fetchDayEn() -> String {
-        dateFormatter.dateFormat = "E"
-        dateFormatter.locale = Locale(identifier: "en")
-        
-        return dateFormatter.string(from: userDate)
-    }
-    
-    func fetchTodayEn() -> String {
-            dateFormatter.dateFormat = "E"
-            dateFormatter.locale = Locale(identifier: "en")
-            
-            return dateFormatter.string(from: Date())
-        }
-    
-    func fetchDayKor() -> String {
-        dateFormatter.dateFormat = "EEEE"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        
-        return dateFormatter.string(from: userDate)
-    }
-    
-    func fetchTodayKor() -> String {
-        dateFormatter.dateFormat = "EEEE"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        
-        return dateFormatter.string(from: Date())
-    }
-    
-    func dayAfterTomorrowKor() -> String {
-        var dayAfterTomorrow = Date()
-        if let addDay = Calendar.current.date(byAdding: .day, value: 2, to: dayAfterTomorrow) {
-            dayAfterTomorrow = addDay
-        }
-        
-        return dateFormatter.string(from: dayAfterTomorrow)
-    }
-    
-    func addDate() {
-        if let addDate = Calendar.current.date(byAdding: .day, value: 1, to: userDate) {
-            userDate = addDate
-        }
-    }
-    
-    func subtractDate() {
-        if let subtractDate = Calendar.current.date(byAdding: .day, value: -1, to: userDate) {
-            userDate = subtractDate
         }
     }
 }

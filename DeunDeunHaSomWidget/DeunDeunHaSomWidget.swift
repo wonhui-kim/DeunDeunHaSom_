@@ -51,7 +51,15 @@ struct Provider: TimelineProvider {
                 let timeline = Timeline(entries: entries, policy: .after(entryDate!))
                 completion(timeline)
             case .failure(let error):
-                print(error)
+                print(error) //17부터는 위젯 버튼 추가 가능해서 새로고침 가능할지 몰라도 그 전엔 기다리는 수 밖에 없음
+                
+                var entries: [SimpleEntry] = []
+                let entry = Entry(date: Date(), staffMeal: ["\(error)", "위젯 갱신 실패"], studentMeal: ["\(error)", "위젯 갱신 실패"])
+                entries.append(entry)
+                
+                let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())
+                let timeline = Timeline(entries: entries, policy: .after(entryDate!))
+                completion(timeline)
             }
         }
     }
