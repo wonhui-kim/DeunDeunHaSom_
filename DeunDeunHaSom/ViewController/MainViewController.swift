@@ -19,11 +19,8 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        configureUIView()
         setupLayout()
-        
-        view.backgroundColor = .systemBackground
-        dateUIView.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,9 +37,9 @@ extension MainViewController {
             do {
                 let result = try await requestMenus(parameters: parameters)
                 handleMenus(result)
-            } catch let error as NSError {
+            } catch {
                 print(error)
-                //네트워크 에러 -> 앱 재실행 요청 문구 띄우기
+                ///TODO: 네트워크 에러 -> 앱 재실행 요청 문구 띄우기
             }
         }
     }
@@ -70,6 +67,8 @@ extension MainViewController {
 //view layout 관련 함수
 extension MainViewController {
     private func configureUI() {
+        view.backgroundColor = .systemBackground
+        
         [dateUIView, menuTableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -94,6 +93,10 @@ extension MainViewController {
         [dateUIViewConstraints, menuTableViewConstraints].forEach {
             NSLayoutConstraint.activate($0)
         }
+    }
+    
+    private func configureUIView() {
+        dateUIView.delegate = self
     }
 }
 

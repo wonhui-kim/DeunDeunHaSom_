@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableSectionHeader: UITableViewHeaderFooterView {
+final class TableSectionHeader: UITableViewHeaderFooterView {
     
     let restaurants = ["교직원 식당", "학생 식당"]
     let hours = ["(11:30 - 13:00)", "(11:00 - 14:00)"]
