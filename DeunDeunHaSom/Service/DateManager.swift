@@ -28,7 +28,6 @@ class DateManager {
         let add6Days = Calendar.current.date(byAdding: .day, value: 6, to: tempDate)!
         let endDateString = dateFormatter.string(from: add6Days)
         
-        //["STARTDATE": "20230527", "ENDDATE": "20230602"]
         return ["STARTDATE":startDateString, "ENDDATE":endDateString]
     }
     
