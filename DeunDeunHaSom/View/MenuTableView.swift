@@ -23,8 +23,6 @@ final class MenuTableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(named: "PointColor")
-        
         configureUI()
         setupLayout()
         setupTableView()
@@ -120,6 +118,7 @@ extension MenuTableView: UITableViewDelegate {
 //layout 관련 함수
 extension MenuTableView {
     private func configureUI() {
+        backgroundColor = UIColor(named: "PointColor")
         mealTable.translatesAutoresizingMaskIntoConstraints = false
         addSubview(mealTable)
         mealTable.backgroundColor = UIColor(named: "PointColor")
