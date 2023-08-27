@@ -7,11 +7,13 @@
 
 import Foundation
 
-enum FetchError: Error {
+enum APIError: Error {
     case invalidURL
     case invalidID
     case invalidData
     case invalidStatusCode
+    case jsonConvertError
+    case unknownError
 }
 
 final class NetworkManager {
@@ -23,7 +25,7 @@ final class NetworkManager {
     func requestData(url: String, parameters: [String:String]) async throws -> [String] {
         
         guard let url = URL(string: url) else {
-            throw FetchError.invalidURL
+            throw APIError.invalidURL
         }
         
         let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
@@ -35,7 +37,7 @@ final class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(for: request)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw FetchError.invalidStatusCode
+            throw APIError.invalidStatusCode
         }
         
         let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
@@ -58,7 +60,7 @@ final class NetworkManager {
     func todayMenus(url: String, parameters: [String:String], completion: @escaping (Result<Restaurant, Error>) -> Void) {
         
         guard let url = URL(string: url) else {
-            completion(.failure(FetchError.invalidURL))
+            completion(.failure(APIError.invalidURL))
             return
         }
         
@@ -71,13 +73,14 @@ final class NetworkManager {
         
         let task = URLSession.shared.dataTask(with: request) { data, _, error in
             
-            if let error = error {
-                completion(.failure(error.localizedDescription as! Error))
+            //dataTask 에러임 -> 어떤 에러가 있는지 생각해보기 + response를 왜 안쓰는지, 각 파라미터가 뭔지
+            if error != nil {
+                completion(.failure(APIError.unknownError))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(FetchError.invalidData))
+                completion(.failure(APIError.invalidData))
                 return
             }
             
@@ -106,7 +109,7 @@ final class NetworkManager {
                 
                 completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
             } catch {
-                completion(.failure(error.localizedDescription as! Error))
+                completion(.failure(APIError.jsonConvertError))
             }
         }
         task.resume()
