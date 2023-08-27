@@ -135,7 +135,7 @@ final class NetworkManager {
         var studentMenu = [String]()
         
         if startIndex >= dayResult.endIndex {
-            studentMenu = dayResult
+            studentMenu = ["오늘은 운영하지 않아요 🥲"]
         } else {
             for i in stride(from: startIndex, to: dayResult.count, by: 1) {
                 studentMenu.append(dayResult[i])
