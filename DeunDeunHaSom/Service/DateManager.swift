@@ -89,10 +89,11 @@ class DateManager {
     
     func today() -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "E"
         
         let today = dateFormatter.string(from: Date())
-        
+
         return today
     }
     
