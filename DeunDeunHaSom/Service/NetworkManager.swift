@@ -30,23 +30,15 @@ final class NetworkManager {
     // TODO: 이것도 어떻게 하면 조금더 가독성있게 짤수 있을까?
     // 10-200룰(클래스는 200줄 이내, 함수는 10줄이내)
     // 함수의 레벨이 비슷해
-    // 실 -> 면 -> 옷감 -> 청바지 => 생뚱
-    // 리팩토링할떄 이런것들을 생각해봐라
-    // error, localizedDescription -> 익히면 좋을거 같다
     func requestData(url: String, parameters: [String:String]) async throws -> [String] {
         
         guard let url = URL(string: url) else {
             throw APIError.invalidURL
         }
         
-        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+        let urlRequest = makeURLRequest(url: url, parameters: parameters)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let requestBody = formDataString.data(using: .utf8)
-        request.httpBody = requestBody
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             throw APIError.invalidStatusCode
         }
@@ -57,7 +49,6 @@ final class NetworkManager {
         return results
     }
     
-    // TODO: 함수 길이 줄이기.
     func todayMenus(url: String, parameters: [String:String], completion: @escaping (Result<Restaurant, Error>) -> Void) {
         
         guard let url = URL(string: url) else {
@@ -65,14 +56,9 @@ final class NetworkManager {
             return
         }
         
-        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+        let urlRequest = makeURLRequest(url: url, parameters: parameters)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let requestBody = formDataString.data(using: .utf8)
-        request.httpBody = requestBody
-        
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+        URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
             
             //dataTask 에러임 -> 어떤 에러가 있는지 생각해보기 + response를 왜 안쓰는지, 각 파라미터가 뭔지
             if error != nil {
@@ -85,26 +71,38 @@ final class NetworkManager {
                 return
             }
             
-            do {
-                let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
-                
-                guard let results = self?.appendMenusFromResponse(cafeteriaResponse),
-                      let todayResult = self?.fetchTodayMenus(results) else {
-                    completion(.failure(APIError.invalidData))
-                    return
-                }
-                
-                if let staffMenu = self?.parseStaffMenu(from: todayResult), let studentMenu = self?.parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1) {
-                    completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
-                } else {
-                    completion(.failure(APIError.invalidData))
-                }
-                
-            } catch {
-                completion(.failure(APIError.jsonConvertError))
-            }
+            self?.handleResponse(data: data, completion: completion)
         }
-        task.resume()
+        .resume()
+    }
+    
+    private func handleResponse(data: Data, completion: @escaping (Result<Restaurant, Error>) -> Void) {
+        do {
+            let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
+            
+            let results = appendMenusFromResponse(cafeteriaResponse)
+            let todayResult = fetchTodayMenus(results)
+            
+            let staffMenu = parseStaffMenu(from: todayResult)
+            let studentMenu = parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1)
+            
+            completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
+        } catch {
+            completion(.failure(APIError.jsonConvertError))
+        }
+    }
+    
+    //URLRequest 생성
+    private func makeURLRequest(url: URL, parameters: [String:String]) -> URLRequest {
+        
+        let formDataString = parameters.map { "\($0)=\($1)" }.joined(separator: "&")
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        let requestBody = formDataString.data(using: .utf8)
+        urlRequest.httpBody = requestBody
+        
+        return urlRequest
     }
     
     private func appendMenusFromResponse(_ response: CafeteriaResponse) -> [String] {
