@@ -42,10 +42,10 @@ extension MainViewController {
         Task {
             do {
                 let result = try await requestMenus(parameters: parameters)
-                handleMenus(result)
+                handleMenus(true)
             } catch {
                 print(error)
-                //TODO: 네트워크 에러 -> 앱 재실행 요청 문구 띄우기
+                handleMenus(false)
             }
         }
     }
@@ -61,10 +61,16 @@ extension MainViewController {
         return result
     }
     
-    private func handleMenus(_ result: [String]) {
-        let todayIndex = dateManager.todayIndex()
-        let staffMenu = menuStorage.dayStaffMenu(dayIndex: todayIndex)
-        let studentMenu = menuStorage.dayStudentMenu(dayIndex: todayIndex)
+    private func handleMenus(_ success: Bool) {
+        //데이터 불러오지 못할 시 false -> 앱 재실행 문구 띄우기
+        var staffMenu = ["데이터를 불러오지 못했습니다.", "앱을 재실행해주세요."]
+        var studentMenu = ["데이터를 불러오지 못했습니다.", "앱을 재실행해주세요."]
+        
+        if success {
+            let todayIndex = dateManager.todayIndex()
+            staffMenu = menuStorage.dayStaffMenu(dayIndex: todayIndex)
+            studentMenu = menuStorage.dayStudentMenu(dayIndex: todayIndex)
+        }
         
         menuTableView.reloadTable(staffMenu: staffMenu, studentMenu: studentMenu)
     }
