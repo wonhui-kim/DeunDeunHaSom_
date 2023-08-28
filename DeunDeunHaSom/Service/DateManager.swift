@@ -33,7 +33,7 @@ final class DateManager {
     }
     
     //오늘이 토요일이면 -> 토요일날짜, 오늘이 평일이면 -> 지난 토요일 날짜
-    func startDate() -> String {
+    private func startDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko")
         dateFormatter.dateFormat = "yyyy.MM.dd E"

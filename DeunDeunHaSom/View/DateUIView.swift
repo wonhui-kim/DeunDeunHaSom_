@@ -73,7 +73,7 @@ final class DateUIView: UIView {
 //view layout 관련 함수
 extension DateUIView {
     
-    func configureUI() {
+    private func configureUI() {
         [dayStackView, dateStackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
@@ -90,7 +90,7 @@ extension DateUIView {
         }
     }
 
-    func setupLayout() {
+    private func setupLayout() {
         let dayStackViewConstraints = [
             dayStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             dayStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
@@ -116,7 +116,7 @@ extension DateUIView {
 extension DateUIView {
     //버튼 클릭 시 태그에 따른 식단 호출
     @objc
-    func dateButtonTapped(_ sender: UIButton) {
+    private func dateButtonTapped(_ sender: UIButton) {
         let tag = sender.tag
         
         delegate?.updateMenu(index: tag)
@@ -133,7 +133,7 @@ extension DateUIView {
     }
     
     //초기 버튼 세팅
-    func initialButtonStatus() {
+    private func initialButtonStatus() {
         //버튼 태그 설정
         for i in 0..<dateButtons.count {
             dateButtons[i].tag = i
@@ -144,7 +144,7 @@ extension DateUIView {
     }
     
     //default로 selected된 버튼
-    func defaultButtonTapped(todayIndex: Int) {
+    private func defaultButtonTapped(todayIndex: Int) {
         //선택된 버튼이 이미 존재하는지 확인
         if let selectedButton = dateButtons.firstIndex(where: { $0.isSelected }) {
             dateButtons[selectedButton].isSelected = false
@@ -155,14 +155,14 @@ extension DateUIView {
         dateButtons[todayIndex].backgroundColor = UIColor(named: "PointColor")
     }
     
-    func updateDateButtons(dates: [String]) {
+    private func updateDateButtons(dates: [String]) {
         for i in 0..<dateButtons.count {
             dateButtons[i].setTitle(dates[i], for: .normal)
         }
     }
     
     @objc
-    func dayChanged(_ notification: Notification) {
+    private func dayChanged(_ notification: Notification) {
         let today = dateManager.today()
         
         if today == "일" || today == "월" {

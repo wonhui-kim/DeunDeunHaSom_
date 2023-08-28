@@ -7,6 +7,12 @@
 
 import UIKit
 
+// ViewController의 역할
+// View들을 뺴준 이유
+// 여기서 다른 방식은 없었는지?
+// 이방식을 떠올린 이유는 뭔지
+// 혹시 다른 개선방안은 없는지?
+// 근거를 통해서 개편하는것이 좋을거 같다.
 final class MainViewController: UIViewController {
     
     private let dateUIView = DateUIView()
@@ -32,7 +38,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController {
     //파라미터 date를 넣으면 일주일간의 데이터를 호출하고, 각 식단을 저장한 후, tableView 리로드
-    func fetchData(parameters: [String:String]) {
+    private func fetchData(parameters: [String:String]) {
         Task {
             do {
                 let result = try await requestMenus(parameters: parameters)
@@ -44,7 +50,8 @@ extension MainViewController {
         }
     }
     
-    func requestMenus(parameters: [String:String]) async throws -> [String] {
+    // URL 관리도 예쁘게 할순없는지?
+    private func requestMenus(parameters: [String:String]) async throws -> [String] {
         let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
         
         let result = try await NetworkManager.shared.requestData(url: url, parameters: parameters)
@@ -55,7 +62,7 @@ extension MainViewController {
         return result
     }
     
-    func handleMenus(_ result: [String]) {
+    private func handleMenus(_ result: [String]) {
         let todayIndex = dateManager.todayIndex()
         let staffMenu = menuStorage.dayStaffMenu(dayIndex: todayIndex)
         let studentMenu = menuStorage.dayStudentMenu(dayIndex: todayIndex)

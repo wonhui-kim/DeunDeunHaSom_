@@ -22,6 +22,12 @@ final class NetworkManager {
     
     private init() { }
     
+    // TODO: 이것도 어떻게 하면 조금더 가독성있게 짤수 있을까?
+    // 10-200룰(클래스는 200줄 이내, 함수는 10줄이내)
+    // 함수의 레벨이 비슷해
+    // 실 -> 면 -> 옷감 -> 청바지 => 생뚱
+    // 리팩토링할떄 이런것들을 생각해봐라
+    // error, localizedDescription -> 익히면 좋을거 같다
     func requestData(url: String, parameters: [String:String]) async throws -> [String] {
         
         guard let url = URL(string: url) else {
@@ -57,6 +63,7 @@ final class NetworkManager {
         return results
     }
     
+    // TODO: 함수 길이 줄이기.
     func todayMenus(url: String, parameters: [String:String], completion: @escaping (Result<Restaurant, Error>) -> Void) {
         
         guard let url = URL(string: url) else {
@@ -116,7 +123,7 @@ final class NetworkManager {
     }
     
     //오늘 전체 메뉴 중 교직원 식당 메뉴 추출
-    func parseStaffMenu(from dayResult: [String]) -> [String] {
+    private func parseStaffMenu(from dayResult: [String]) -> [String] {
         var staffMenu = [String]()
         
         if dayResult.count <= 1 {
@@ -134,7 +141,7 @@ final class NetworkManager {
     }
     
     //오늘 전체 메뉴 중 학생 식당 메뉴 추출
-    func parseStudentMenu(from dayResult: [String], startIndex: Int) -> [String] {
+    private func parseStudentMenu(from dayResult: [String], startIndex: Int) -> [String] {
         var studentMenu = [String]()
         
         if startIndex >= dayResult.endIndex {
