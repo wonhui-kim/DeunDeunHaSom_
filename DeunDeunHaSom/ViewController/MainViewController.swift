@@ -45,14 +45,13 @@ extension MainViewController {
                 handleMenus(result)
             } catch {
                 print(error)
-                ///TODO: 네트워크 에러 -> 앱 재실행 요청 문구 띄우기
+                //TODO: 네트워크 에러 -> 앱 재실행 요청 문구 띄우기
             }
         }
     }
     
-    // URL 관리도 예쁘게 할순없는지?
     private func requestMenus(parameters: [String:String]) async throws -> [String] {
-        let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
+        let url = APIConstants.baseURL + APIConstants.cafeteriaEndpoint
         
         let result = try await NetworkManager.shared.requestData(url: url, parameters: parameters)
         

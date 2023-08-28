@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct APIConstants {
+    static let baseURL = "https://www.dongduk.ac.kr"
+    static let cafeteriaEndpoint = "/ajax/etc/cafeteria/cafeteria_data.json?"
+}
+
 enum APIError: Error {
     case invalidURL
     case invalidID

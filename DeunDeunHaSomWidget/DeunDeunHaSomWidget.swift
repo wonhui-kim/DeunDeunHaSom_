@@ -13,7 +13,7 @@ struct Provider: TimelineProvider {
     let networkManager = NetworkManager.shared
     let dateManager = DateManager.shared
     
-    let url = "https://www.dongduk.ac.kr/ajax/etc/cafeteria/cafeteria_data.json?"
+    let url = APIConstants.baseURL + APIConstants.cafeteriaEndpoint
     
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), staffMeal: [String](), studentMeal: [String]())
