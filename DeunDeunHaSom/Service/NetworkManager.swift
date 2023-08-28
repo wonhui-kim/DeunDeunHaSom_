@@ -52,18 +52,7 @@ final class NetworkManager {
         }
         
         let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
-        
-        var results = [String]()
-        
-        cafeteriaResponse.cafeteriaList.forEach { menu in
-            if (31...35).contains(menu.type) {
-                guard let eachMenu = menu.content else {
-                    results.append("오늘은 운영하지 않아요 🥲")
-                    return
-                }
-                results.append(eachMenu)
-            }
-        }
+        let results = appendMenusFromResponse(cafeteriaResponse)
         
         return results
     }
@@ -83,7 +72,7 @@ final class NetworkManager {
         let requestBody = formDataString.data(using: .utf8)
         request.httpBody = requestBody
         
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             
             //dataTask 에러임 -> 어떤 에러가 있는지 생각해보기 + response를 왜 안쓰는지, 각 파라미터가 뭔지
             if error != nil {
@@ -99,32 +88,50 @@ final class NetworkManager {
             do {
                 let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
                 
-                var results = [String]()
-                cafeteriaResponse.cafeteriaList.forEach { menu in
-                    if (31...35).contains(menu.type) {
-                        guard let eachMenu = menu.content else {
-                            results.append("오늘은 운영하지 않아요 🥲")
-                            return
-                        }
-                        results.append(eachMenu)
-                    }
+                guard let results = self?.appendMenusFromResponse(cafeteriaResponse),
+                      let todayResult = self?.fetchTodayMenus(results) else {
+                    completion(.failure(APIError.invalidData))
+                    return
                 }
                 
-                let todayIndex = DateManager.shared.todayIndex()
-                
-                let todayResult = results[todayIndex].split(separator: "\r\n").map {
-                    String($0)
+                if let staffMenu = self?.parseStaffMenu(from: todayResult), let studentMenu = self?.parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1) {
+                    completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
+                } else {
+                    completion(.failure(APIError.invalidData))
                 }
                 
-                let staffMenu = self.parseStaffMenu(from: todayResult)
-                let studentMenu = self.parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1)
-                
-                completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
             } catch {
                 completion(.failure(APIError.jsonConvertError))
             }
         }
         task.resume()
+    }
+    
+    private func appendMenusFromResponse(_ response: CafeteriaResponse) -> [String] {
+        var results = [String]()
+        
+        response.cafeteriaList.forEach { menu in
+            if (31...35).contains(menu.type) {
+                guard let eachMenu = menu.content else {
+                    results.append("오늘은 운영하지 않아요 🥲")
+                    return
+                }
+                results.append(eachMenu)
+            }
+        }
+        
+        return results
+    }
+    
+    //전체 응답 결과를 가공하여 오늘 메뉴 반환
+    private func fetchTodayMenus(_ totalResults: [String]) -> [String] {
+        let todayIndex = DateManager.shared.todayIndex()
+        
+        let result = totalResults[todayIndex].split(separator: "\r\n").map {
+            String($0)
+        }
+        
+        return result
     }
     
     //오늘 전체 메뉴 중 교직원 식당 메뉴 추출

@@ -41,11 +41,12 @@ extension MainViewController {
     private func fetchData(parameters: [String:String]) {
         Task {
             do {
-                let result = try await requestMenus(parameters: parameters)
+                let _ = try await requestMenus(parameters: parameters)
                 handleMenus(true)
             } catch {
                 print(error)
                 handleMenus(false)
+                //TODO: refresh control 추가
             }
         }
     }
