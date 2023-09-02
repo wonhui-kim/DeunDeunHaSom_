@@ -27,9 +27,6 @@ final class NetworkManager {
     
     private init() { }
     
-    // TODO: 이것도 어떻게 하면 조금더 가독성있게 짤수 있을까?
-    // 10-200룰(클래스는 200줄 이내, 함수는 10줄이내)
-    // 함수의 레벨이 비슷해
     func requestData(url: String, parameters: [String:String]) async throws -> [String] {
         
         guard let url = URL(string: url) else {
@@ -76,6 +73,7 @@ final class NetworkManager {
         .resume()
     }
     
+    //CafeteriaResponse 응답을 교직원, 학생 식당 메뉴로 가공하여 completion으로 전달
     private func handleResponse(data: Data, completion: @escaping (Result<Restaurant, Error>) -> Void) {
         do {
             let cafeteriaResponse = try JSONDecoder().decode(CafeteriaResponse.self, from: data)
@@ -105,6 +103,7 @@ final class NetworkManager {
         return urlRequest
     }
     
+    //홈페이지 식단 데이터 추출하여 String 배열로 반환
     private func appendMenusFromResponse(_ response: CafeteriaResponse) -> [String] {
         var results = [String]()
         
@@ -140,7 +139,7 @@ final class NetworkManager {
             staffMenu = dayResult
         } else {
             for i in stride(from: 1, to: dayResult.count, by: 1) {
-                if dayResult[i].contains("학생") {
+                if dayResult[i].contains("코너") {
                     break
                 }
                 staffMenu.append(dayResult[i])

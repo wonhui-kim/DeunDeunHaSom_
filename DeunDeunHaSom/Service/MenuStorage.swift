@@ -39,7 +39,7 @@ final class MenuStorage {
                 var menu = [String]()
                 
                 for j in stride(from: 1, to: menus[i].count, by: 1) {
-                    if menus[i][j].contains("학생") {
+                    if menus[i][j].contains("코너") {
                         break
                     }
                     menu.append(menus[i][j])

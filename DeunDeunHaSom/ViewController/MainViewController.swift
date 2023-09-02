@@ -64,8 +64,8 @@ extension MainViewController {
     
     private func handleMenus(_ success: Bool) {
         //데이터 불러오지 못할 시 false -> 앱 재실행 문구 띄우기
-        var staffMenu = ["데이터를 불러오지 못했습니다.", "앱을 재실행해주세요."]
-        var studentMenu = ["데이터를 불러오지 못했습니다.", "앱을 재실행해주세요."]
+        var staffMenu = ["데이터를 불러오지 못했습니다.", "앱 종료 후 재실행해주세요."]
+        var studentMenu = ["데이터를 불러오지 못했습니다.", "앱 종료 후 재실행해주세요."]
         
         if success {
             let todayIndex = dateManager.todayIndex()
