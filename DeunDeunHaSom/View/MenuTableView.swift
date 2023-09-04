@@ -61,6 +61,7 @@ extension MenuTableView: UITableViewDataSource {
         }
         
         cell.textLabel?.textAlignment = .center
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
         
         return cell
     }
