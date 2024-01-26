@@ -55,9 +55,11 @@ extension MainViewController {
         let url = APIConstants.baseURL + APIConstants.cafeteriaEndpoint
         
         let result = try await NetworkManager.shared.requestData(url: url, parameters: parameters)
+        let separator = await NetworkManager.shared.requestSeparator()
+        print(separator)
         
         //일주일 치 저장
-        menuStorage.saveWeekMenus(menus: result)
+        menuStorage.saveWeekMenus(menus: result, separator: separator)
         
         return result
     }

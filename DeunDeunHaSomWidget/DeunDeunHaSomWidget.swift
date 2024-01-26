@@ -20,9 +20,8 @@ struct Provider: TimelineProvider {
     }
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        
         let startEndDate = dateManager.startEndDate()
-        
+
         networkManager.todayMenus(url: url, parameters: startEndDate) { result in
             switch result {
             case .success(let menus):
@@ -96,7 +95,7 @@ struct DeunDeunHaSomWidgetEntryView : View {
 @main
 struct DeunDeunHaSomWidget: Widget {
     let kind: String = "com.wonhui.DeunDeunHaSom.DeunDeunHaSomWidget"
-    
+
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             DeunDeunHaSomWidgetEntryView(entry: entry)

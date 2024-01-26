@@ -73,6 +73,15 @@ final class NetworkManager {
         .resume()
     }
     
+    func requestSeparator() async -> String {
+        do {
+            let separator = try await FirebaseManager.shared.fetchSeparator()
+            return separator
+        } catch {
+            return "1)"
+        }
+    }
+    
     //CafeteriaResponse 응답을 교직원, 학생 식당 메뉴로 가공하여 completion으로 전달
     private func handleResponse(data: Data, completion: @escaping (Result<Restaurant, Error>) -> Void) {
         do {
@@ -81,10 +90,14 @@ final class NetworkManager {
             let results = appendMenusFromResponse(cafeteriaResponse)
             let todayResult = fetchTodayMenus(results)
             
-            let staffMenu = parseStaffMenu(from: todayResult)
-            let studentMenu = parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1)
-            
-            completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
+            Task {
+                let separator = await requestSeparator()
+                
+                let staffMenu = parseStaffMenu(from: todayResult, separator: separator)
+                let studentMenu = parseStudentMenu(from: todayResult, startIndex: staffMenu.count+1)
+                
+                completion(.success(Restaurant(staff: staffMenu, student: studentMenu)))
+            }
         } catch {
             completion(.failure(APIError.jsonConvertError))
         }
@@ -132,14 +145,14 @@ final class NetworkManager {
     }
     
     //오늘 전체 메뉴 중 교직원 식당 메뉴 추출
-    private func parseStaffMenu(from dayResult: [String]) -> [String] {
+    private func parseStaffMenu(from dayResult: [String], separator: String) -> [String] {
         var staffMenu = [String]()
         
         if dayResult.count <= 1 {
             staffMenu = dayResult
         } else {
             for i in stride(from: 1, to: dayResult.count, by: 1) {
-                if dayResult[i].contains("코너") {
+                if dayResult[i].contains(separator) {
                     break
                 }
                 staffMenu.append(dayResult[i])

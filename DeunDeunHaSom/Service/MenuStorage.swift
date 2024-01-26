@@ -17,7 +17,7 @@ final class MenuStorage {
     private var studentMenus: [[String]] = Array(repeating: [], count: 5)
     
     //네트워크로부터 불러온 raw데이터를 가공하여 교직원, 학생 일주일치 메뉴로 저장
-    func saveWeekMenus(menus: [String]) {
+    func saveWeekMenus(menus: [String], separator: String) {
         var wholeMenus = [[String]]()
         
         menus.forEach { menu in
@@ -26,12 +26,11 @@ final class MenuStorage {
             }
             wholeMenus.append(todayResult)
         }
-        
-        saveStaffMenus(menus: wholeMenus)
+        saveStaffMenus(menus: wholeMenus, separator: separator)
         saveStudentMenus(menus: wholeMenus)
     }
     
-    private func saveStaffMenus(menus: [[String]]) {
+    private func saveStaffMenus(menus: [[String]], separator: String) {
         for i in stride(from: 0, to: menus.count, by: 1) {
             if menus[i].count <= 1 {
                 staffMenus[i] = ["오늘은 운영하지 않아요 🥲"]
@@ -39,7 +38,7 @@ final class MenuStorage {
                 var menu = [String]()
                 
                 for j in stride(from: 1, to: menus[i].count, by: 1) {
-                    if menus[i][j].contains("코너") {
+                    if menus[i][j].contains(separator) {
                         break
                     }
                     menu.append(menus[i][j])
